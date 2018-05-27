@@ -8,5 +8,4 @@ public class Movie {
 	private int runTime;
 	private String relDts; 
 	private String relDte;
-	private String aaaaaaa;
 }
