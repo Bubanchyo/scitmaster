@@ -8,4 +8,6 @@ public class Movie {
 	private int runTime;
 	private String relDts; 
 	private String relDte;
+	private String aaa;
+	//내일부터 묵언수행
 }
