@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- 1. properties file등록 -->
+	<properties resource="config/dbconn.properties"/>
+	
+	<!-- null값을 허용하는 설정 :: 위치가 중요 -->
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	<!-- 2. vo등록 -->
+	<typeAliases>
+		<typeAlias type="vo.Auditorium" alias="auditorium"/>
+		<typeAlias type="vo.Movie" alias="movie"/>
+		<typeAlias type="vo.Theater" alias="theater"/>
+	</typeAliases>
+
+	<!-- 3. DataSource등록 -->
+	<environments default="qq">
+		<environment id="qq">
+			<transactionManager type="JDBC"/>
+			<dataSource type="UNPOOLED">
+				<property name="driver" value="${JDBC.driver}"/>			
+				<property name="url" value="${JDBC.url}"/>
+				<property name="username" value="${JDBC.username}"/>
+				<property name="password" value="${JDBC.password}"/>
+			</dataSource>
+		</environment>
+	</environments>
+	
+	
+	<!-- xml기반의 쿼리문인 mapping.xml을 등록 -->
+ 	<mappers>
+ 		<mapper resource="sql/mybatis-MovieService-mapping.xml"/>
+ 		<!-- mapping파일들을 하나씩 등록함... -->
+ 	</mappers>
+ 	
+</configuration>

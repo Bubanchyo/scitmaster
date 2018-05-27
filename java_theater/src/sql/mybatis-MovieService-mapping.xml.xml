@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--	
+	mybatis-userservice-mapping.xml : SQL 를 갖는 설정화일 (MetaData) 
+	- MyBatis Framework 은 XML MetaData를 사용 SQL구문을 관리하며,
+	  (SQL은 xml 을 통해 적절히 캡슐화 되어 애플리케이선 의 외부로 분리함)
+	- SQL문의 입력(?) / 출력(?)을 매핑한다.  <== 아래의 select element 참조
+ -->
+ 
+<!-- SQL definition -->
+<mapper namespace="MovieMapper">
+	<resultMap type="movie" id="movieResultMap">
+	 	<result column="movie_no" property="movieNo" jdbcType="INTEGER"/>
+	 	<result column="movie_name" property="movieName" jdbcType="VARCHAR"/>
+	 	<result column="director" property="director" jdbcType="VARCHAR"/>
+	 	<result column="genre" property="genre" jdbcType="VARCHAR"/>
+	 </resultMap>
+	 
+	 <sql id="movie-select">
+	 	SELECT
+	 		movie_no AS movieNo,
+	 		movie_name AS movieName,
+	 		director AS director,
+	 		genre AS genre
+	 	FROM movie
+	 </sql>
+	 
+	<select id="getMovie" resultType="movie" parameterType="string">
+		SELECT
+			movie_no AS movieNo,
+			movie_name AS movieName,
+			director AS director,
+			genre AS genre
+		FROM movie
+		WHERE movie_no = #{movieNo}
+	</select>	 
+	 
+	<select id="getMovieList" resultType="movie">
+		SELECT
+			movie_no AS movieNo,
+			movie_name AS movieName,
+			director AS director,
+			genre As genre
+		FROM movie
+	</select>
+	
+	<insert id="insertMovie" parameterType="movie">
+		INSERT INTO movie VALUES( 
+			movie_seq.nextVal,
+			#{movieName},
+			#{director},
+			#{genre}
+		)
+	</insert>
+</mapper>
+
+
+<!-- Finish -->

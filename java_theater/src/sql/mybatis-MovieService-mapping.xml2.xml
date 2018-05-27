@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--	
+	mybatis-userservice-mapping.xml : SQL 를 갖는 설정화일 (MetaData) 
+	- MyBatis Framework 은 XML MetaData를 사용 SQL구문을 관리하며,
+	  (SQL은 xml 을 통해 적절히 캡슐화 되어 애플리케이선 의 외부로 분리함)
+	- SQL문의 입력(?) / 출력(?)을 매핑한다.  <== 아래의 select element 참조
+ -->
+ 
+<!-- SQL definition -->
+<mapper namespace="AuditoriumMapper">
+	<resultMap type="auditorium" id="auditoriumResultMap">
+	 	<result column="theater_no" property="theaterNo" jdbcType="INTEGER"/>
+	 	<result column="auditorium_no" property="auditoriumNo" jdbcType="INTEGER"/>
+	 	<result column="movie_no" property="movieNo" jdbcType="INTEGER"/>
+	 	<result column="on_play" property="onPlay" jdbcType="INTEGER"/>
+	 	<result column="price" property="price" jdbcType="INTEGER"/>
+	 	<result column="seat_no" property="seatNo" jdbcType="VARCHAR"/>
+	 	<result column="booked" property="booked" jdbcType="INTEGER"/>
+	 </resultMap>
+	 <sql id="auditorium-select">
+	 	SELECT
+	 		theater_no AS theaterNo,
+	 		auditorium_no AS auditoriumNo,
+	 		movie_no AS movieNo,
+	 		on_play AS onPlay,
+	 		price AS price,
+	 		seat_no AS seatNo,
+	 		booked AS booked
+	 	FROM auditorium
+	 </sql>
+	<select id="getAuditorium" resultType="auditorium" parameterType="auditorium">
+		SELECT
+	 		theater_no AS theaterNo,
+	 		auditorium_no AS auditoriumNo,
+	 		movie_no AS movieNo,
+	 		on_play AS onPlay,
+	 		price AS price,
+	 		seat_no AS seatNo,
+	 		booked AS booked
+	 	FROM auditorium
+		WHERE theater_no = #{theaterNo} AND
+			auditorium_no = #{auditoriumNo} AND
+			movie_no = #{movieNo} AND 
+			seat_no = #{seatNO}
+	</select>	 
+	<select id="getAuditoriumList" resultType="auditorium">
+		SELECT
+	 		theater_no AS theaterNo,
+	 		auditorium_no AS auditoriumNo,
+	 		movie_no AS movieNo,
+	 		on_play AS onPlay,
+	 		price AS price,
+	 		seat_no AS seatNo,
+	 		booked AS booked
+	 	FROM auditorium
+	</select>
+	<insert id="insertAuditorium" parameterType="auditorium">
+		INSERT INTO auditorium VALUES( 
+			#{theaterNo},
+			#{auditoriumNo},
+			#{movieNo},
+			#{onPlay},
+			#{price},
+			#{seatNo},
+			#{booked}
+		)
+	</insert>
+	<update id="updateAuditorium" parameterType="auditorium">
+		UPDATE SET 
+			on_play = #{onPlay},
+			price = #{price}
+		WHERE theater_no = #{theaterNo} AND
+			auditorium_no = #{auditoriumNo} AND
+			movie_no = #{movieNo}			
+	</update>
+	<update id="bookAuditorium" parameterType="auditorium">
+		UPDATE SET 
+			seat_no = #{seatNo},
+			booked = #{booked}
+		WHERE theater_no = #{theaterNo} AND
+			auditorium_no = #{auditoriumNo} AND
+			movie_no = #{movieNo}
+	</update>
+</mapper>
+
+
+<!-- Finish -->
