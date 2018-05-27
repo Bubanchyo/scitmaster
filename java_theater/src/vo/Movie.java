@@ -9,5 +9,6 @@ public class Movie {
 	private String relDts; 
 	private String relDte;
 	private String aaa;
+	private String bb;
 	//내일부터 묵언수행
 }
