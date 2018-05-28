@@ -5,8 +5,6 @@ public class Cinema {
 	private String cinemaLoc;
 
 	public Cinema() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Cinema(String cinemaLoc) {
